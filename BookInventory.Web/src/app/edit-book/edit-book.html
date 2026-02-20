@@ -1,0 +1,142 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+  <div class="max-w-2xl mx-auto">
+    <div
+      class="bg-white shadow-xl shadow-gray-200/50 rounded-2xl border border-gray-100 overflow-hidden"
+    >
+      <div class="flex items-center justify-between px-8 py-6 border-b border-gray-50 bg-white">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Update Book</h2>
+          <p class="text-sm text-gray-500 mt-1">
+            Modify the fields below to update the book details in the inventory.
+          </p>
+        </div>
+        <a
+          routerLink="/Home"
+          class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-slate-900 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          Back
+        </a>
+      </div>
+
+      <form #bookForm="ngForm" class="p-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold text-slate-600 tracking-tight mb-1">
+              Book Title <span class="text-red-500">*</span>
+            </label>
+            <input
+              class="w-full border border-gray-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-all"
+              placeholder="e.g. The Great Gatsby"
+              required
+              name="title"
+              [(ngModel)]="editBookForm.title"
+              #title="ngModel"
+            />
+            <div
+              *ngIf="title.errors && isSubmitted"
+              class="flex items-center gap-1 text-red-600 text-[11px] mt-1 font-medium"
+            >
+              Title is required
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 tracking-tight mb-1 mt-2">
+              Author <span class="text-red-500">*</span>
+            </label>
+            <input
+              class="w-full border border-gray-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-all"
+              placeholder="Full Name"
+              required
+              name="author"
+              [(ngModel)]="editBookForm.author"
+              #author="ngModel"
+            />
+            <div
+              *ngIf="author.errors && isSubmitted"
+              class="text-red-600 text-[11px] mt-1 font-medium"
+            >
+              Author is required
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-600 tracking-tight mb-1 mt-2">
+              ISBN <span class="text-red-500">*</span>
+            </label>
+            <input
+              class="w-full border border-gray-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-all"
+              placeholder="978-3-16..."
+              required
+              name="isbn"
+              [(ngModel)]="editBookForm.isbn"
+              #isbn="ngModel"
+            />
+            <div
+              *ngIf="isbn.errors && isSubmitted"
+              class="text-red-600 text-[11px] mt-1 font-medium"
+            >
+              ISBN is required
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold text-slate-600 tracking-tight mb-1 mt-2">
+              Publication Date <span class="text-red-500">*</span>
+            </label>
+            <input
+              class="w-full border border-gray-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-all"
+              type="date"
+              required
+              name="publicationDate"
+              [(ngModel)]="editBookForm.publicationDate"
+              #publicationDate="ngModel"
+            />
+            <div
+              *ngIf="publicationDate.errors && isSubmitted"
+              class="text-red-600 text-[11px] mt-1 font-medium"
+            >
+              Date is required
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-gray-50 flex justify-end">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold px-5 py-2 rounded-xl transition-all shadow-lg shadow-slate-200 active:scale-95 text-sm"
+            (click)="EditBook(bookForm.form.valid)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Update Book Details
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
