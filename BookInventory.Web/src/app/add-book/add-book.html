@@ -42,15 +42,25 @@
               class="w-full border border-gray-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-all placeholder:text-gray-400"
               placeholder="e.g. The Great Gatsby"
               required
+              minlength="3"
+              maxlength="100"
               name="title"
               [(ngModel)]="addBookForm.title"
               #title="ngModel"
             />
-            <div
-              *ngIf="title.errors && isSubmitted"
-              class="flex items-center gap-1 text-red-600 text-[11px] mt-1 font-medium"
-            >
-              Title is required
+            <div *ngIf="isSubmitted || title.touched">
+              <p
+                *ngIf="title.errors?.['required']"
+                class="text-red-600 text-[11px] mt-1 font-medium"
+              >
+                Title is required
+              </p>
+              <p
+                *ngIf="title.errors?.['minlength']"
+                class="text-red-600 text-[11px] mt-1 font-medium"
+              >
+                Title must be at least 3 characters
+              </p>
             </div>
           </div>
 
@@ -67,7 +77,7 @@
               #author="ngModel"
             />
             <div
-              *ngIf="author.errors && isSubmitted"
+              *ngIf="(author.errors && isSubmitted) || (author.errors && author.touched)"
               class="text-red-600 text-[11px] mt-1 font-medium"
             >
               Author is required
@@ -75,9 +85,7 @@
           </div>
 
           <div>
-            <label
-              class="block text-sm font-semibold text-slate-600 uppercase tracking-tight mb-1 mt-2"
-            >
+            <label class="block text-sm font-semibold text-slate-600 tracking-tight mb-1 mt-2">
               ISBN <span class="text-red-500">*</span>
             </label>
             <input
@@ -89,7 +97,7 @@
               #isbn="ngModel"
             />
             <div
-              *ngIf="isbn.errors && isSubmitted"
+              *ngIf="(isbn.errors && isSubmitted) || (isbn.errors && isbn.touched)"
               class="text-red-600 text-[11px] mt-1 font-medium"
             >
               ISBN is required
@@ -109,7 +117,10 @@
               #publicationDate="ngModel"
             />
             <div
-              *ngIf="publicationDate.errors && isSubmitted"
+              *ngIf="
+                (publicationDate.errors && isSubmitted) ||
+                (publicationDate.errors && publicationDate.touched)
+              "
               class="text-red-600 text-[11px] mt-1 font-medium"
             >
               Date is required
@@ -120,6 +131,9 @@
         <div class="pt-3 border-t border-gray-50 flex justify-end">
           <button
             type="button"
+            [disabled]="!bookForm.form.valid"
+            [class.opacity-50]="!bookForm.form.valid"
+            [class.cursor-not-allowed]="!bookForm.form.valid"
             class="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold px-5 py-2 rounded-xl transition-all shadow-lg shadow-slate-200 active:scale-95 text-sm"
             (click)="AddBook(bookForm.form.valid)"
           >
